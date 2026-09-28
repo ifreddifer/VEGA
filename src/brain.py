@@ -1,10 +1,12 @@
 from ollama import Client
 from config import MODEL
+from memory import VegaMemory
 
 
 class VegaBrain:
     def __init__(self):
         self.client = Client()
+        self.memoria = VegaMemory()
 
         self.mensagens = [
             {
@@ -19,10 +21,18 @@ class VegaBrain:
         ]
 
     def conversar(self, texto):
+        nome = self.memoria.lembrar("nome")
+
+        contexto_memoria = ""
+
+        if nome:
+            contexto_memoria = f"O nome do usuário é {nome}."
+
+
         self.mensagens.append(
             {
                 "role": "user",
-                "content": texto
+                "content": f"{contexto_memoria}\n\nUsuário: {texto}"
             }
         )
 

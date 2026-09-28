@@ -24,3 +24,11 @@ class VegaMemory:
 
     def lembrar(self, chave):
         return self.dados.get(chave)
+
+    def esquecer(self, chave):
+        if chave in self.dados:
+            del self.dados[chave]
+            self.salvar()
+
+    def todas(self):
+        return self.dados.copy()
