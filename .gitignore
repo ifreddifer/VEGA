@@ -8,6 +8,9 @@ env/
 # Environment variables
 .env
 
+# Memória local da VEGA
+data/
+
 # IDE
 .vscode/
 
