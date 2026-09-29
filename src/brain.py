@@ -21,12 +21,15 @@ class VegaBrain:
         ]
 
     def conversar(self, texto):
-        nome = self.memoria.lembrar("nome")
+        memorias = self.memoria.todas()
 
         contexto_memoria = ""
 
-        if nome:
-            contexto_memoria = f"O nome do usuário é {nome}."
+        if memorias:
+            contexto_memoria = (
+                "Informações conhecidas sobre o usuário:\n"
+                f"{memorias}"
+            )
 
 
         self.mensagens.append(
