@@ -16,6 +16,12 @@ class VegaBrain:
                     "Seu nome é VEGA, podendo ser chamada também de VEGAs."
                     "Você utiliza o modelo Qwen3.5 como seu cérebro. Quando perguntarem qual modelo você utiliza, responda que seu cérebro atualmente é o Qwen3.5 4B executado localmente pelo Ollama. Isso não muda sua identidade: você é a VEGA."
                     "Responda de forma natural, clara e direta."
+
+                    "Quando o usuário informar uma informação pessoal estável sobre si mesmo que possa ser útil no futuro, identifique essa informação como uma possível memória. "
+                    "Use o formato exatamente assim:\n"
+                    "MEMORIA: chave = valor\n"
+                    "Exemplo: MEMORIA: nome = Fernando\n"
+                    "Se não houver uma informação apropriada para memorizar, não escreva nenhuma linha MEMORIA."
                 )
             }
         ]
@@ -46,6 +52,18 @@ class VegaBrain:
         )
 
         resposta_vega = resposta["message"]["content"]
+
+        for linha in resposta_vega.splitlines():
+            if linha.startswith("MEMORIA:"):
+                memoria = linha.replace("MEMORIA:", "").strip()
+
+                if "=" in memoria:
+                    chave, valor = memoria.split("=", 1)
+
+                    chave = chave.strip()
+                    valor = valor.strip()
+
+                    self.memoria.guardar(chave, valor)
 
         self.mensagens.append(
             {

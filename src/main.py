@@ -1,16 +1,16 @@
 from brain import VegaBrain
-from memory import VegaMemory
 
 
 def main():
     vega = VegaBrain()
-    memoria = VegaMemory()
+    memoria = vega.memoria
 
     print("VEGA iniciada.")
     print("Digite 'sair' para encerrar.")
     print("Digite '/memoria' para consultar as memórias.")
     print("Digite '/lembrar *chave*' para consultar as memórias especificas.")
     print("Digite '/guardar *chave* *valor*' para guardar na memória.")
+    print("Digite '/esquecer *chave*' para apagar da memória.")
 
     while True:
         texto = input("Você: ")
